@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MedSync – Patient Dashboard</title>
+</head>
+<body>
+
+  <h1>MedSync – Patient Dashboard</h1>
+
+  <div id="patient"></div>
+
+  <button onclick="takeMeds()">I Took My Meds</button>
+  <button onclick="nudge()">Doctor Nudge</button>
+
+  <script>
+    const API_URL = "http://localhost:3000";
+
+    function loadPatient() {
+      fetch(`${API_URL}/api/patients`)
+        .then(res => res.json())
+        .then(data => {
+          const p = data.patient_001;
+          document.getElementById("patient").innerHTML = `
+            <p><b>Name:</b> ${p.name}</p>
+            <p><b>Pills Left:</b> ${p.pills_left}</p>
+            <p><b>Status:</b> ${p.status}</p>
+          `;
+        });
+    }
+
+    function takeMeds() {
+      fetch(`${API_URL}/api/log-dose`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ patient_id: "patient_001" })
+      })
+      .then(res => res.json())
+      .then(() => loadPatient());
+    }
+
+    function nudge() {
+      fetch(`${API_URL}/api/nudge-patient`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ patient_id: "patient_001" })
+      })
+      .then(res => res.json())
+      .then(() => alert("Doctor nudged the patient"));
+    }
+
+    loadPatient();
+  </script>
+
+</body>
+</html>

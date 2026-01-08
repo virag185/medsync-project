@@ -66,3 +66,25 @@ Installed Git for Windows and verified installation.
 
 ### 5. Lesson (Root Cause Analysis)  
 Git must be installed and available in PATH to use version control commands.
+---
+
+## Bug ID: #011
+**Timestamp:** [today’s date & time]
+**Context:** Firestore database creation blocked due to billing requirement
+
+### 1. Assumption  
+I assumed Firestore test mode could be used without enabling billing.
+
+### 2. Reality  
+Firebase required a billing account to create Firestore, and I did not have access to a payment method.
+
+### 3. Investigation  
+- Reviewed Firebase error message
+- Researched Firebase free-tier billing requirements
+- Considered alternative approaches
+
+### 4. Solution  
+Implemented backend logic using a mock data layer that mirrors Firestore structure, allowing all APIs and logic to be developed without billing.
+
+### 5. Lesson (Root Cause Analysis)  
+Engineering solutions must adapt to real-world constraints while preserving system design and intent.

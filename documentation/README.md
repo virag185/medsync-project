@@ -1,5 +1,25 @@
-# MedSync Adherence System
+# MedSync – Medication Adherence System
 
-This project helps patients remember to take their medication and allows doctors to monitor adherence.
+## Overview
+MedSync is a simple medication adherence system that allows patients to log medication intake and doctors to send reminders.
 
-Built as part of a Junior Full Stack Developer Trainee assignment.
+## Features
+- Patient medication tracking
+- Log daily dose intake
+- Doctor nudge/reminder feature
+- Simple frontend dashboard
+- Backend API using Express
+
+## Tech Stack
+- Node.js
+- Express.js
+- HTML, JavaScript
+- Firebase (mocked due to billing requirement)
+
+## API Endpoints
+- GET /api/patients
+- POST /api/log-dose
+- POST /api/nudge-patient
+
+## Notes
+Firestore was mocked due to billing requirements. The backend logic mirrors Firestore structure and can be swapped with Firebase Admin SDK with minimal changes.

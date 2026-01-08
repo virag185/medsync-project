@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MedSync – Doctor Dashboard</title>
+</head>
+<body>
+
+<h1>Doctor Dashboard</h1>
+
+<div id="patients"></div>
+
+<script>
+  const API_URL = "http://localhost:3000";
+
+  function loadPatients() {
+    fetch(`${API_URL}/api/patients`)
+      .then(res => res.json())
+      .then(data => {
+        let html = "";
+
+        Object.values(data).forEach(p => {
+          let statusIcon = "";
+          let actionBtn = "";
+
+          if (p.status === "Taken") {
+            statusIcon = "✅ Taken";
+          } else {
+            statusIcon = "🔴 Missed";
+            actionBtn = `<button onclick="nudge('${p.id}')">Nudge</button>`;
+          }
+
+          html += `
+            <div style="margin-bottom:10px;">
+              <b>${p.name}</b> — ${statusIcon}
+              ${actionBtn}
+            </div>
+          `;
+        });
+
+        document.getElementById("patients").innerHTML = html;
+      });
+  }
+
+  function nudge(id) {
+    fetch(`${API_URL}/api/nudge-patient`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ patient_id: id })
+    })
+    .then(() => alert("Patient nudged"));
+  }
+
+  loadPatients();
+  setInterval(loadPatients, 3000); // auto refresh
+</script>
+
+</body>
+</html>
